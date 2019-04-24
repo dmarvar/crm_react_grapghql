@@ -1,6 +1,7 @@
 import express from "express";
 import graphqlHTTP from "express-graphql";
 import schema from "./schema";
+import resolvers from "./resolvers";
 const app = express();
 const PORT = 8000;
 
@@ -8,9 +9,7 @@ app.get("/", (req, res) => {
   res.send("Hola Mundo");
 });
 
-// El resolver: Es la funcion que nos va a dar el resultado de las consultas
-
-const root = { hola: () => "Hola Mundo desde GraphQL" };
+const root = resolvers;
 
 app.use(
   "/graphql",
