@@ -13,7 +13,9 @@ const client = new ApolloClient({
 function App() {
 	return (
 		<div>
-			<h1>Hola Mundo</h1>
+			<ApolloProvider client={client}>
+				<h1>Hola Mundo</h1>
+			</ApolloProvider>
 		</div>
 	);
 }
