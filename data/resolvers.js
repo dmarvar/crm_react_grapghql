@@ -3,10 +3,13 @@ import { Clientes } from './db';
 
 // El resolver: Es la funcion que nos va a dar el resultado de las consultas
 
-export const resolver = {
+export const resolvers = {
 	Query: {
-		getCliente: ({ id }) => {
-			return new Cliente(id, clientesDB[id]);
+		getClientes: () => {
+			return Clientes.find({});
+		},
+		getCliente: (root, { id }) => {
+			return Clientes.findById(id);
 		}
 	},
 	Mutation: {
@@ -25,6 +28,22 @@ export const resolver = {
 				nuevoCliente.save((error) => {
 					if (error) rejects(error);
 					else resolve(nuevoCliente);
+				});
+			});
+		},
+		actualizarCliente: (root, { input }) => {
+			return new Promise((resolve, object) => {
+				Clientes.findOneAndUpdate({ _id: input.id }, input, { new: true }, (error, cliente) => {
+					if (error) rejects(error);
+					else resolve(cliente);
+				});
+			});
+		},
+		eliminarCliente: (root, { id }) => {
+			return new Promise((resolve, object) => {
+				Clientes.findOneAndRemove({ _id: id }, (error) => {
+					if (error) rejects(error);
+					else resolve('Se eliminó correctamente');
 				});
 			});
 		}

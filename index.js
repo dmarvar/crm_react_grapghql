@@ -12,9 +12,15 @@ app.use(
 	'/graphql',
 	graphqlHTTP({
 		// El esquema que se va a utilizar
-		schema,
+		schema: schema,
 		// Utilizar Graphical
-		graphiql: true
+		graphiql: true,
+		customFormatErrorFn: (error) => ({
+			message: error.message,
+			locations: error.locations,
+			stack: error.stack ? error.stack.split('\n') : [],
+			path: error.path
+		})
 	})
 );
 
