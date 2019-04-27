@@ -23,7 +23,7 @@ enum TipoCliente {
 }
 
 type Query {
-	getClientes: [Cliente]
+	getClientes(limite: Int): [Cliente]
 	getCliente(id: ID): Cliente
 }
 

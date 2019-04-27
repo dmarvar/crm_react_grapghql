@@ -5,11 +5,16 @@ import { Clientes } from './db';
 
 export const resolvers = {
 	Query: {
-		getClientes: () => {
-			return Clientes.find({});
+		getClientes: (root, { limite }) => {
+			return Clientes.find({}).limit(limite);
 		},
 		getCliente: (root, { id }) => {
-			return Clientes.findById(id);
+			return new Promise((resolve, obj) =>
+				Clientes.findById(id, (error, cliente) => {
+					if (error) rejects(error);
+					else resolve(cliente);
+				})
+			);
 		}
 	},
 	Mutation: {
