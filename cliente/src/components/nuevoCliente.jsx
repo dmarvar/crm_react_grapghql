@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { NUEVO_CLIENTE } from '../mutations';
 import { Mutation } from 'react-apollo';
 
+//PENDIENTE VALIDACION DE FORM
+
 export default class NuevoCliente extends Component {
 	state = {
 		cliente: {
@@ -26,7 +28,7 @@ export default class NuevoCliente extends Component {
 			<Fragment>
 				<h2 className="text-center">Nuevo Cliente</h2>
 				<div className="row justify-content-center">
-					<Mutation mutation={NUEVO_CLIENTE}>
+					<Mutation mutation={NUEVO_CLIENTE} onCompleted={() => this.props.history.push('/')}>
 						{(crearCliente) => (
 							<form className="col-md-8 m-3" onSubmit={this.submitForm.bind(this, crearCliente)}>
 								<div className="form-row">
@@ -104,7 +106,7 @@ export default class NuevoCliente extends Component {
 									</div>
 								</div>
 								<button type="submit" className="btn btn-success float-right">
-									Guardar Cambios
+									Agregar Cliente
 								</button>
 							</form>
 						)}
